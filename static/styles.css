@@ -5,7 +5,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css')
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -87,9 +87,9 @@ button, input {
   --border-radius-pill: 50rem;
 
   /* Colors */
-  --text-color-dark: #1F2937;
-  --text-color-light: #F9FAF8;
-  --text-muted-light: #cccccc;
+  --color-text-dark: #1F2937;
+  --color-text-light: #F9FAF8;
+  --color-text-muted-light: #cccccc;
 
   --color-btn-primary: #3882F6;
   --color-btn-primary-hover: #296ddb;
@@ -104,7 +104,8 @@ button, input {
   --color-bg-primary: #1F2937;
   --color-bg-section: #E5E7EB;
   --color-bg-alt: #ffffff;
-
+  --color-bg-off-white: #f7f7f7;
+  --color-bg-off-white-hover: #f1f1f1;
 }
 
 html{
@@ -114,7 +115,7 @@ html{
 body {
   font-size: var(--text-size-md);
   font-weight: var(--font-weight-normal);
-  color: var(--text-color-dark);
+  color: var(--color-text-light);
   line-height: 1.6;
   background-color: var(--color-bg-primary);
 }
@@ -149,7 +150,90 @@ p {
 }
 
 a {
-  color: var(--text-color-light);
+  color: var(--color-text-light);
+}
+
+.light{
+  background-color: var(--color-bg-alt);
+}
+
+.grey{
+  background-color: var(--color-bg-section);
+}
+
+.dark{
+  background-color: var(--color-bg-primary);
+}
+
+/* table styling. This is the outer container that gives scroll on mobile */
+.table-scroll {
+  width: 100%;
+  max-height: 80vh;
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.container.table-scroll{
+  /* We add space on the bottom of the table container */
+  margin-bottom: 1rem;
+}
+.responsive-table {
+  /* The table should take max width */
+  width: 100%;
+  /* This removes double borders between cells */
+  border-collapse: separate;
+  overflow: hidden;
+  /* Make corners rounded */
+  border-radius: var(--border-radius-lg);
+  border: 1px solid black;
+  /* The normal font looks bad in table, set specific fonts here */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.responsive-table thead{
+  /* table head gets a white background */
+  background-color: var(--color-bg-alt);
+}
+
+.responsive-table th{
+  /* Make the text slightly larger */
+  font-size: var(--text-size-lg);
+}
+
+.responsive-table th,
+.responsive-table td {
+  /* add some space inside the cells */
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  /*  */
+  white-space: nowrap;
+  /* Put the text inside the cells to the left side */
+  text-align: left;
+}
+
+.responsive-table tbody tr:hover{
+  /* When hovering over a row we darken the color */
+  background-color: var(--color-bg-off-white);
+}
+
+.responsive-table thead th {
+  /* This makes the table header stick when scrolling */
+  position: sticky;
+  /* z-index means that it is a top layer. Z-index "in/out" from the screen. X = right/left, Y = up/down */
+  z-index: 999;
+  /* top: 0 means that it is always on top position inside the table */
+  top: 0;
+  background-color: var(--color-bg-alt);
+  /* Add a soft shadow */
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Change hover colors for odd rows */
+.responsive-table tbody tr:nth-child(odd):hover{
+  background-color: var(--color-bg-off-white-hover);
+}
+.responsive-table tbody tr:nth-child(odd){
+  background-color: var(--color-bg-off-white);
 }
 
 small {
@@ -158,11 +242,11 @@ small {
 }
 
 .text-primary{
-  color: var(--text-color-light);
+  color: var(--color-text-light);
 }
 
 .text-secondary{
-  color: var(--text-color-dark);
+  color: var(--color-text-dark);
 }
 
 .text-muted{
@@ -218,6 +302,14 @@ nav ul {
 .hero{
   min-height: 100vh;
   height: auto;
+  /* Add a "stylish" background image */
+  background:
+  /* We add an opacity to make the image darker. Makes white text visible */
+    linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    url("assets/images/hero-bg.jpg") center / cover no-repeat;
 }
 
 .info{
@@ -231,6 +323,22 @@ footer{
 footer p{
   margin-bottom: 0;
   text-align: center;
+}
+
+.pagination{
+  /* We want to place the pagination centered */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.page-items{
+  margin-bottom: 0.5rem;
+}
+
+.sorting-icon{
+  max-height: 1rem;
 }
 
 @media (min-width: 576px) {
@@ -250,6 +358,11 @@ footer p{
   .container{
     max-width: 90%;
     margin: 0 auto;
+  }
+
+  /* On larger screens we set the table width larger */
+  .responsive-table {
+    min-width: 100%;
   }
 
   h1{

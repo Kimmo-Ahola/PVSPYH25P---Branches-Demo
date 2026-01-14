@@ -1,5 +1,5 @@
 {% extends "user/layout.html" %}
-
+{% from 'macros.html' import render_pagination %}
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
@@ -19,4 +19,56 @@
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, soluta quae maiores quisquam recusandae, ab voluptatibus eligendi assumenda id quas expedita distinctio ex commodi modi facilis, temporibus laudantium nemo natus!</p>
     </div>
 </section>
+
+<div class="container table-scroll">
+        <table class="responsive-table light text-secondary">
+            <thead>
+                <tr>
+                    <th style="vertical-align: bottom;">
+                        <span style="display: flex; align-items: center; gap: 0.25rem;">
+                            Name
+                            <a href="{{url_for(endpoint, sort_by='Name', sort_order='asc')}}">
+                                <i class="fi fi-ss-angle-small-up text-secondary"></i> 
+                            </a> <a href="{{url_for(endpoint, sort_by='Name', sort_order='desc')}}">
+                                <i class="fi fi-ss-angle-small-down text-secondary"></i> 
+                            </a></th>
+                        </span>
+                    <th>Address 
+                        <a href="">
+                            <i class="fi fi-ss-angle-small-up text-secondary"></i> 
+                        </a>
+                        <a href="">
+                            <i class="fi fi-ss-angle-small-down text-secondary"></i>
+                    </a>
+                    </th>
+                    <th>City</th>
+                    <th>Zipcode</th>
+                    <th>Country</th>
+                    <th>Birthday</th>
+                    <th>NationalId</th>
+                    <th>Email</th>
+                    <th>Go to</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                <tr>
+                    <td>{{customer.GivenName}} {{customer.Surname}}</td>
+                    <td>{{customer.Streetaddress}}</td>
+                    <td>{{customer.City}}</td>
+                    <td>{{customer.Zipcode}}</td>
+                    <td>{{customer.Country}}</td>
+                    <td>{{customer.Birthday}}</td>
+                    <td>{{customer.NationalId}}</td>
+                    <td>{{customer.EmailAddress}}</td>
+                    <td><a class="btn btn-primary" href="{{url_for('home', id=customer.Id)}}"><i class="fi fi-rr-arrow-small-right text-secondary"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+<div class="container">
+    {{ render_pagination(pagination, endpoint, sort_by, sort_order) }}
+</div>
+    
 {% endblock %}
